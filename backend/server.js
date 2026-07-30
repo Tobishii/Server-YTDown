@@ -92,6 +92,3 @@ app.listen(PORT, () => {
   console.log(`YTDown corriendo en http://localhost:${PORT}`);
   console.log('El servidor esta corriendo correctamente...');
 });
-
-const cors = require('cors');
-app.use(cors()); // Permite peticiones desde cualquier origen
