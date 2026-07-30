@@ -133,11 +133,11 @@ function getVideoInfo(url) {
 function formatArgsFor(quality) {
   switch (quality) {
     case '1080':
-      return ['-f', 'bestvideo[height<=1080]+bestaudio/bestvideo+bestaudio/best', '--merge-output-format', 'mp4'];
+      return ['-f', 'bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<=1080]+bestaudio/best[height<=1080]/best', '--merge-output-format', 'mp4'];
     case '720':
-      return ['-f', 'bestvideo[height<=720]+bestaudio/bestvideo+bestaudio/best', '--merge-output-format', 'mp4'];
+      return ['-f', 'bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<=720]+bestaudio/best[height<=720]/best', '--merge-output-format', 'mp4'];
     case '480':
-      return ['-f', 'bestvideo[height<=480]+bestaudio/bestvideo+bestaudio/best', '--merge-output-format', 'mp4'];
+      return ['-f', 'bestvideo[height<=480][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<=480]+bestaudio/best[height<=480]/best', '--merge-output-format', 'mp4'];
     case 'mp3':
       return ['-x', '--audio-format', 'mp3', '--audio-quality', '320K'];
     default:
