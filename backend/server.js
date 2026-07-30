@@ -88,7 +88,7 @@ io.on('connection', (socket) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`YTDown corriendo en http://localhost:${PORT}`);
   console.log('El servidor esta corriendo correctamente...');
 });
