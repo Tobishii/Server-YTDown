@@ -1,0 +1,16 @@
+{
+  "name": "ytdown-personal",
+  "version": "1.0.0",
+  "description": "Descargador personal de videos de YouTube (uso local, no publico)",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5",
+    "uuid": "^9.0.1"
+  }
+}
