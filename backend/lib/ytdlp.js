@@ -83,7 +83,7 @@ function estimateSizes(formats, durationSec) {
 function getVideoInfo(url) {
   return new Promise((resolve, reject) => {
     const COOKIES_PATH = path.join(__dirname, '..', '..', 'config', 'cookies.txt');
-    const args = ['-j', '--no-playlist', '--skip-download', '--cookies', COOKIES_PATH, url];
+    const args = ['-j', '--no-playlist', '--skip-download', '--no-warnings', '--cookies', COOKIES_PATH, url];
     const proc = spawn('yt-dlp', args);
 
     let stdout = '';
@@ -152,6 +152,7 @@ function downloadVideo({ url, quality, jobId, downloadsDir, onProgress, onDone, 
   const args = [
     '--newline',
     '--no-playlist',
+    '--no-warnings',
     '--cookies', COOKIES_PATH,
     '-o', outputTemplate,
     ...formatArgsFor(quality),
