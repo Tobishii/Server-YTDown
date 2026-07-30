@@ -9,14 +9,20 @@ RUN apt-get update && apt-get install -y \
 
 RUN pip3 install -U yt-dlp --break-system-packages
 
-WORKDIR /app
-
+# Decirle a yt-dlp dónde está Node.js para el n-challenge
 RUN yt-dlp --version
+ENV PATH="/usr/local/bin:$PATH"
+
+WORKDIR /app
 
 COPY backend/package*.json ./backend/
 RUN cd backend && npm install --omit=dev
 
 COPY . .
+
+# Configurar yt-dlp para usar Node.js como runtime JS
+RUN mkdir -p /root/.config/yt-dlp && \
+    echo '--js-runtimes node:/usr/local/bin/node' > /root/.config/yt-dlp/config
 
 EXPOSE 3000
 
