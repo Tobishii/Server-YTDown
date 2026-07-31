@@ -7,22 +7,22 @@ RUN apt-get update && apt-get install -y \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install -U yt-dlp --break-system-packages
+# Instalar yt-dlp con soporte completo para n-challenge
+RUN pip3 install -U yt-dlp[default] --break-system-packages
 
-# Decirle a yt-dlp dónde está Node.js para el n-challenge
-RUN yt-dlp --version
-ENV PATH="/usr/local/bin:$PATH"
+# Pre-descargar el script del n-challenge solver
+RUN yt-dlp --update-to nightly 2>/dev/null || true
 
 WORKDIR /app
+
+# Crear config de yt-dlp con el runtime de JS
+RUN mkdir -p /root/.config/yt-dlp && \
+    printf -- '--js-runtimes node:/usr/local/bin/node\n' > /root/.config/yt-dlp/config
 
 COPY backend/package*.json ./backend/
 RUN cd backend && npm install --omit=dev
 
 COPY . .
-
-# Configurar yt-dlp para usar Node.js como runtime JS
-RUN mkdir -p /root/.config/yt-dlp && \
-    echo '--js-runtimes node:/usr/local/bin/node' > /root/.config/yt-dlp/config
 
 EXPOSE 3000
 
