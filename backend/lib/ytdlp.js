@@ -89,6 +89,7 @@ function getVideoInfo(url) {
     '--skip-download',
     '--no-warnings',
     '--remote-components', 'ejs:github',
+    '--extractor-args', 'youtube:pot_provider=bgutil',
     '--cookies', COOKIES_PATH,
     url
 ];
@@ -162,6 +163,7 @@ function downloadVideo({ url, quality, jobId, downloadsDir, onProgress, onDone, 
     '--no-playlist',
     '--no-warnings',
     '--remote-components', 'ejs:github',
+    '--extractor-args', 'youtube:pot_provider=bgutil',
     '--cookies', COOKIES_PATH,
     '-o', outputTemplate,
     ...formatArgsFor(quality),
