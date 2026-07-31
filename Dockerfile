@@ -9,16 +9,14 @@ RUN apt-get update && apt-get install -y \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-# Instalar Deno (runtime JS nativo de yt-dlp)
+# Instalar Deno
 RUN curl -fsSL https://deno.land/install.sh | sh
 ENV DENO_INSTALL="/root/.deno"
 ENV PATH="$DENO_INSTALL/bin:$PATH"
 
-# Instalar yt-dlp
-RUN pip3 install -U yt-dlp --break-system-packages
-
-# Verificar que Deno es visible para yt-dlp
-RUN deno --version && yt-dlp --version
+# Instalar yt-dlp con el plugin de PO Token
+RUN pip3 install -U yt-dlp --break-system-packages && \
+    pip3 install -U bgutil-ytdlp-pot-provider --break-system-packages
 
 WORKDIR /app
 
