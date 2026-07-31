@@ -88,6 +88,7 @@ function getVideoInfo(url) {
     '--no-playlist',
     '--skip-download',
     '--no-warnings',
+    '--remote-components', 'ejs:github',
     '--cookies', COOKIES_PATH,
     url
 ];
@@ -160,6 +161,7 @@ function downloadVideo({ url, quality, jobId, downloadsDir, onProgress, onDone, 
     '--newline',
     '--no-playlist',
     '--no-warnings',
+    '--remote-components', 'ejs:github',
     '--cookies', COOKIES_PATH,
     '-o', outputTemplate,
     ...formatArgsFor(quality),
