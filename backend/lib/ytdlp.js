@@ -88,7 +88,6 @@ function getVideoInfo(url) {
     '--no-playlist',
     '--skip-download',
     '--no-warnings',
-    '--extractor-args', 'youtube:player_client=web,default',
     '--cookies', COOKIES_PATH,
     url
 ];
@@ -161,7 +160,6 @@ function downloadVideo({ url, quality, jobId, downloadsDir, onProgress, onDone, 
     '--newline',
     '--no-playlist',
     '--no-warnings',
-    '--extractor-args', 'youtube:player_client=web,default',
     '--cookies', COOKIES_PATH,
     '-o', outputTemplate,
     ...formatArgsFor(quality),
