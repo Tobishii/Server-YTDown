@@ -4,20 +4,23 @@ RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
     ffmpeg \
+    curl \
+    unzip \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-# Instalar yt-dlp con soporte completo para n-challenge
-RUN pip3 install -U yt-dlp[default] --break-system-packages
+# Instalar Deno (runtime JS nativo de yt-dlp)
+RUN curl -fsSL https://deno.land/install.sh | sh
+ENV DENO_INSTALL="/root/.deno"
+ENV PATH="$DENO_INSTALL/bin:$PATH"
 
-# Pre-descargar el script del n-challenge solver
-RUN yt-dlp --update-to nightly 2>/dev/null || true
+# Instalar yt-dlp
+RUN pip3 install -U yt-dlp --break-system-packages
+
+# Verificar que Deno es visible para yt-dlp
+RUN deno --version && yt-dlp --version
 
 WORKDIR /app
-
-# Crear config de yt-dlp con el runtime de JS
-RUN mkdir -p /root/.config/yt-dlp && \
-    printf -- '--js-runtimes node:/usr/local/bin/node\n' > /root/.config/yt-dlp/config
 
 COPY backend/package*.json ./backend/
 RUN cd backend && npm install --omit=dev
